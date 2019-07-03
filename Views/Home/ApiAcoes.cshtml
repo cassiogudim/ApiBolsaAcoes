@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "ApiAcoes";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Api Ações Bovespa</title>
+    <link href="~/Content/main.css" rel="stylesheet" />
+    <link href="~/Content/util.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript">
+        // usar o document.ready
+        var item = '';
+        var jsonItem = '';
+        var htmlBody = '';
+        $(document).ready(function () {
+            // Handler for .ready() called.
+            //pegar o viewdata
+            item = @Html.Raw(Json.Encode(ViewData["retorno"]));
+            jsonItem = JSON.parse(item);
+            //console.log(jsonItem);
+            for (var i = 0; i < jsonItem.d.aaData.length; i++)
+            {
+                htmlBody += "<tr><td>" + jsonItem.d.aaData[i][0] + "</td>";
+                htmlBody += "<td>" + jsonItem.d.aaData[i][1]  + "</td>";
+                htmlBody += "<td>" + jsonItem.d.aaData[i][2]  + "</td>";
+                htmlBody += "<td>" + jsonItem.d.aaData[i][3]  + "</td>";
+                htmlBody += "<td>" + jsonItem.d.aaData[i][4]  + "</td>";
+                htmlBody += "<td>" + jsonItem.d.aaData[i][5]  + "</td>";
+                htmlBody += "<td>" + jsonItem.d.aaData[i][6]  + "</td>";
+                htmlBody += "<td>" + jsonItem.d.aaData[i][7] + "</td></tr>";
+            }
+
+            //console.log(htmlBody);
+            $("#tblBody").html(htmlBody);
+        });
+    </script>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <td>Nome Ação</td>
+                <td>Sigla</td>
+                <td>Data</td>
+                <td>Preço</td>
+                <td>Variação dia</td>
+                <td>Variação Semana</td>
+                <td>Variação Mês</td>
+                <td>Variação Ano</td>
+            </tr>
+        </thead>
+        <tbody id="tblBody">
+            
+        </tbody>
+    </table>
+</body>
+</html>
+
+
